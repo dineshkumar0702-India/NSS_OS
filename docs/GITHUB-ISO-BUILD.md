@@ -8,7 +8,11 @@ No WSL and no Windows reboot. GitHub compiles the ISO; you download it as an art
 2. **New repository** → name e.g. `NSS_OS` or `opennas-lite`.
 3. **Private** recommended.
 4. Do **not** add README, .gitignore, or license (this repo already has them).
-5. Copy the HTTPS URL, e.g. `https://github.com/YOUR_USER/NSS_OS.git`.
+5. Copy the HTTPS URL. For this project, use repo name **`NSS_OS`**:
+
+   `https://github.com/dineshkumar0702-India/NSS_OS.git`
+
+   Profile: [github.com/dineshkumar0702-India](https://github.com/dineshkumar0702-India)
 
 ## 2. Push from this PC (PowerShell)
 
@@ -17,11 +21,17 @@ cd C:\Cursor_Projets\NSS_OS
 
 # If you already committed locally, only add remote + push:
 git branch -M main
-git remote add origin https://github.com/YOUR_USER/NSS_OS.git
+git remote add origin https://github.com/dineshkumar0702-India/NSS_OS.git
 git push -u origin main
 ```
 
-GitHub will ask you to sign in. Use a **Personal Access Token** as the password if prompted ([create token](https://github.com/settings/tokens) with `repo` scope).
+**Or with GitHub CLI** (after `gh auth login` in a normal terminal):
+
+```powershell
+gh repo create dineshkumar0702-India/NSS_OS --private --source=. --remote=origin --push
+```
+
+GitHub will ask you to sign in on push. Use a **Personal Access Token** as the password if prompted ([create token](https://github.com/settings/tokens) with `repo` scope).
 
 ## 3. Run the ISO workflow
 
