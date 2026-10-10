@@ -9,7 +9,11 @@ if ! command -v npm >/dev/null 2>&1; then
 	echo "npm required to build web UI" >&2
 	exit 1
 fi
-npm ci 2>/dev/null || npm install
+if [ -f package-lock.json ]; then
+	npm ci || npm install
+else
+	npm install
+fi
 npm run build
 
 rm -rf "${OUT}"

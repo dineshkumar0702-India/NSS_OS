@@ -12,8 +12,10 @@ build_web() {
 		return 0
 	fi
 	if command -v npm >/dev/null 2>&1; then
-		bash "${REPO_ROOT}/build/scripts/build-web.sh"
-		return 0
+		if bash "${REPO_ROOT}/build/scripts/build-web.sh"; then
+			return 0
+		fi
+		echo "Web UI build failed — using fallback static page." >&2
 	fi
 	echo "npm not found — using minimal web fallback (re-run with Node/npm for full UI)." >&2
 	mkdir -p "${WEB_OUT}"

@@ -15,6 +15,11 @@
 
 	$: path = $page.url.pathname;
 	$: isPublic = publicPaths.some((p) => path === p || path.startsWith(p + '/'));
+
+	function onThemeChange(e) {
+		const value = e.currentTarget?.value ?? 'light';
+		setTheme(value === 'dark' ? 'dark' : 'light');
+	}
 </script>
 
 {#if isPublic}
@@ -39,7 +44,7 @@
 			<div style="margin-top: 1.5rem; font-size: 0.85rem">
 				<label class="muted" style="display:block">{t('theme')}</label>
 				<select
-					on:change={(e) => setTheme((e.currentTarget as HTMLSelectElement).value as 'light' | 'dark')}
+					on:change={onThemeChange}
 					value={$theme}
 				>
 					<option value="light">{t('light')}</option>
