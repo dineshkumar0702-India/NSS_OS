@@ -67,22 +67,7 @@ Create another VM, attach that ISO, install OpenNAS-Lite — see [VMWARE.md](VMW
 
 ## B. GitHub Actions (no Linux VM on your PC)
 
-1. Create a **private** repository on GitHub (empty).
-2. In PowerShell:
-
-```powershell
-cd C:\Cursor_Projets\NSS_OS
-git init -b main
-git add -A
-git commit -m "OpenNAS-Lite snapshot for ISO build"
-git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
-git push -u origin main
-```
-
-3. On GitHub: **Actions** → **Build OpenNAS-Lite ISO** → **Run workflow** (or wait for push).
-4. When finished, download artifact **opennas-lite-iso** and extract the `.iso` to `build\output\`.
-
-No reboot; your code is backed up on GitHub.
+Local git is already initialized with an initial commit. Follow **[GITHUB-ISO-BUILD.md](GITHUB-ISO-BUILD.md)** to create the GitHub repo, `git push`, and download the ISO artifact.
 
 ---
 
