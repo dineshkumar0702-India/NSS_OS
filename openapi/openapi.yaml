@@ -27,6 +27,7 @@ paths:
       tags: [auth]
       summary: Create session
       operationId: authLogin
+      security: []
       requestBody:
         required: true
         content:
@@ -298,8 +299,7 @@ components:
           type: boolean
           default: false
         confirm_token:
-          type: string
-          nullable: true
+          type: [string, null]
     PoolPlan:
       type: object
       properties:

@@ -1,0 +1,6 @@
+extends:
+  - recommended
+
+rules:
+  tag-description: warn
+  operation-4xx-response: warn
