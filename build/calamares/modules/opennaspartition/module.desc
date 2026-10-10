@@ -1,0 +1,6 @@
+---
+type:         "job"
+name:         "opennaspartition"
+interface:    "python"
+script:       "opennaspartition.py"
+timeout:      300

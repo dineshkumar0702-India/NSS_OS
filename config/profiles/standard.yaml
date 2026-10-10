@@ -1,0 +1,23 @@
+# OpenNAS-Lite install profile: Standard (4 GB+ RAM recommended)
+name: standard
+description: >
+  Balanced NAS for home use. Docker App Center available; VMs and ZFS remain opt-in with warnings.
+ram_mb_minimum: 4096
+feature_flags:
+  docker: true
+  zfs: false
+  virtualization: false
+  ai_photos: false
+  clamav: false
+services_enabled:
+  - avahi-daemon
+  - caddy
+  - nftables
+  - fail2ban
+  - docker
+packages_extra:
+  - docker.io
+  - docker-compose-plugin
+cgroup_defaults:
+  nas_slice_memory_max: "1G"
+  docker_default_memory: "512m"

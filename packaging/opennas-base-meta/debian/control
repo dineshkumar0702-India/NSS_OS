@@ -1,0 +1,30 @@
+Source: opennas-base-meta
+Section: misc
+Priority: optional
+Maintainer: OpenNAS-Lite Contributors <dev@opennas.local>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: opennas-base-meta
+Architecture: all
+Depends: btrfs-progs,
+ mdadm,
+ lvm2,
+ smartmontools,
+ avahi-daemon,
+ zram-tools,
+ nftables,
+ fail2ban,
+ caddy,
+ python3,
+ python3-yaml,
+ samba,
+ nfs-kernel-server,
+ grub-pc,
+ grub-efi-amd64,
+ shim-signed,
+ ${misc:Depends}
+Description: OpenNAS-Lite core package set (metapackage)
+ Pulls in the default packages for an installed OpenNAS-Lite system.
+ Profile-specific packages (Docker, ZFS, libvirt) are installed by Calamares hooks.

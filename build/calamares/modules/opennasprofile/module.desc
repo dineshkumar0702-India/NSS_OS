@@ -1,0 +1,6 @@
+---
+type:         "view"
+name:         "opennasprofile"
+interface:    "qtquick"
+script:       "opennasprofile.qml"
+timeout:      60

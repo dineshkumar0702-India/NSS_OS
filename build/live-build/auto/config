@@ -1,0 +1,30 @@
+#!/bin/sh
+# OpenNAS-Lite live-build configuration (Debian 12 bookworm, amd64).
+# Invoked by: ./auto/config   then   sudo lb build
+
+set -e
+
+lb config noauto \
+	--mode debian \
+	--distribution bookworm \
+	--archive-areas "main contrib non-free non-free-firmware" \
+	--architectures amd64 \
+	--linux-flavours amd64 \
+	--linux-packages "linux-image" \
+	--bootappend-live "boot=live components quiet splash" \
+	--bootloader grub \
+	--binary-images iso-hybrid \
+	--compression xz \
+	--zsync false \
+	--memtest none \
+	--debian-installer false \
+	--apt-indices false \
+	--apt-recommends false \
+	--apt-source-archives false \
+	--firmware-binary true \
+	--firmware-chroot true \
+	--iso-application "OpenNAS-Lite NAS Installer" \
+	--iso-preparer "OpenNAS-Lite Project" \
+	--iso-volume "OpenNAS-Lite amd64" \
+	--win32-loader false \
+	"${@}"

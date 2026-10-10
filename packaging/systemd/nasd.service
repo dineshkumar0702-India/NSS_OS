@@ -1,0 +1,29 @@
+[Unit]
+Description=OpenNAS-Lite management daemon (nasd)
+Documentation=https://opennas.local/docs
+After=network-online.target local-fs.target
+Wants=network-online.target
+ConditionPathExists=/var/lib/nasd
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=NASD_DATA_DIR=/var/lib/nasd
+Environment=NASD_RUN_DIR=/run/nasd
+Environment=NASD_HOST=127.0.0.1
+Environment=NASD_PORT=8741
+Environment=NASD_COOKIE_SECURE=true
+Environment=NASD_ALLOW_STORAGE_MUTATIONS=false
+RuntimeDirectory=nasd
+StateDirectory=nasd
+ExecStart=/usr/bin/nasd --host 127.0.0.1 --port 8741
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=false
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/nasd /run/nasd /etc/samba /etc/nftables.conf /etc/caddy
+
+[Install]
+WantedBy=multi-user.target

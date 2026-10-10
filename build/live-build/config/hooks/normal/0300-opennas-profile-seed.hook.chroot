@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+# Seeds staged by build/scripts/stage-includes.sh into includes.chroot
+if [ -d /usr/share/opennas/profiles ] && [ -n "$(ls -A /usr/share/opennas/profiles 2>/dev/null)" ]; then
+	chown -R root:root /usr/share/opennas
+	chmod -R a+rX /usr/share/opennas
+fi
+
+if [ -f /usr/share/opennas/nasd/config.seed.json ]; then
+	chmod 0644 /usr/share/opennas/nasd/config.seed.json
+fi
+
+# Hardware check helper (install target; invoked from Calamares module later)
+install -d -m 0755 /usr/local/sbin
+cat > /usr/local/sbin/opennas-hw-check <<'EOF'
+#!/bin/bash
+# Recommend install profile from RAM (MiB) and optional flags.
+set -e
+ram_mb=$(awk '/MemTotal/ {print int($2/1024)}' /proc/meminfo)
+virt=0
+grep -Eq 'vmx|svm' /proc/cpuinfo && [ -e /dev/kvm ] && virt=1
+if [ "$ram_mb" -lt 3500 ]; then
+  profile=minimal
+elif [ "$ram_mb" -lt 7500 ]; then
+  profile=standard
+else
+  profile=full
+fi
+printf '{"ram_mb":%s,"virtualization":%s,"recommended_profile":"%s"}\n' "$ram_mb" "$virt" "$profile"
+EOF
+chmod 0755 /usr/local/sbin/opennas-hw-check

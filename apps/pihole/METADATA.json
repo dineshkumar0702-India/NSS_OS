@@ -1,0 +1,8 @@
+{
+  "id": "pihole",
+  "name": "Pi-hole",
+  "description": "Network-wide DNS ad blocking",
+  "min_profile": "standard",
+  "ports": [80, 53],
+  "memory_limit": "512m"
+}

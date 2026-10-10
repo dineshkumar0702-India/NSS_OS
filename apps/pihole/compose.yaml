@@ -1,0 +1,17 @@
+services:
+  pihole:
+    image: pihole/pihole:latest
+    container_name: opennas-pihole
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8080:80"
+    environment:
+      TZ: UTC
+    volumes:
+      - pihole-data:/etc/pihole
+    mem_limit: 512m
+
+volumes:
+  pihole-data:

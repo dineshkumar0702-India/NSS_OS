@@ -1,0 +1,9 @@
+{
+  "id": "jellyfin",
+  "name": "Jellyfin",
+  "description": "Media server with optional hardware transcoding",
+  "min_profile": "standard",
+  "icon": "jellyfin",
+  "ports": [8096],
+  "memory_limit": "1g"
+}

@@ -1,0 +1,16 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10.10
+    container_name: opennas-jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - /data/media:/media:ro
+    mem_limit: 1g
+
+volumes:
+  jellyfin-config:
+  jellyfin-cache:

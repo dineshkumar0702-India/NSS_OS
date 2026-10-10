@@ -1,0 +1,3 @@
+# Bootstrap options for debootstrap (minbase keeps ISO smaller)
+--variant=minbase
+--include=ca-certificates,gnupg

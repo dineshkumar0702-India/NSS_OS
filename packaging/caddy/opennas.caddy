@@ -1,0 +1,17 @@
+# Installed to /etc/caddy/Caddyfile (snippet) — proxy UI + API to nasd
+{
+	admin off
+}
+
+:443 {
+	tls internal
+	handle /api/* {
+		reverse_proxy 127.0.0.1:8741
+	}
+	handle /healthz {
+		reverse_proxy 127.0.0.1:8741
+	}
+	root * /usr/share/opennas/web
+	file_server
+	try_files {path} /index.html
+}

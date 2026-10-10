@@ -1,0 +1,54 @@
+#!/bin/bash
+set -e
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update
+apt-get -y dist-upgrade
+
+# Locales: English only
+sed -i '/^# en_US.UTF-8 UTF-8/s/^# //' /etc/locale.gen
+locale-gen
+update-locale LANG=en_US.UTF-8
+
+# Non-interactive defaults
+echo "opennas-lite" > /etc/hostname
+mkdir -p /etc/systemd/system/ssh.service.d
+printf '%s\n' '[Install]' 'WantedBy=' > /etc/systemd/system/ssh.service.d/disable.conf
+systemctl mask ssh.service 2>/dev/null || true
+
+# Avahi hostname for discovery
+mkdir -p /etc/avahi
+cat > /etc/avahi/avahi-daemon.conf <<'EOF'
+[server]
+host-name=opennas
+domain-name=local
+use-ipv4=yes
+use-ipv6=yes
+enable-dbus=yes
+
+[wide-area]
+enable-wide-area=yes
+
+[publish]
+publish-hinfo=no
+publish-workstation=yes
+publish-addresses=yes
+EOF
+
+# zram swap (old hardware)
+cat > /etc/systemd/zram-generator.conf <<'EOF'
+[zram0]
+zram-size = min(ram / 2, 4096)
+compression-algorithm = zstd
+EOF
+
+# OpenNAS paths
+install -d -m 0755 /var/lib/nasd /run/nasd /usr/share/opennas/profiles /usr/share/opennas/nasd
+
+# Caddy + nasd configured in 0400-opennas-nasd.hook.chroot
+
+# Live user password random; Calamares creates admin on target
+if [ -f /usr/share/live/config/live-config.conf ]; then
+	sed -i 's/LIVE_USERNAME="live"/LIVE_USERNAME="live"/' /usr/share/live/config/live-config.conf 2>/dev/null || true
+fi

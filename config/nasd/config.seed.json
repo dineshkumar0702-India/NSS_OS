@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "codename": "OpenNAS-Lite",
+  "setup_complete": false,
+  "system_config": {
+    "network.hostname": "opennas",
+    "locale.default": "en_US.UTF-8",
+    "timezone": "Asia/Kolkata"
+  },
+  "feature_flags": {
+    "docker": false,
+    "zfs": false,
+    "virtualization": false,
+    "ai_photos": false,
+    "clamav": false
+  },
+  "opennas_profile": "standard"
+}

@@ -1,0 +1,29 @@
+# OpenNAS-Lite install profile: Full (8 GB+ RAM for ZFS/VM comfort)
+name: full
+description: >
+  All optional modules offered when hardware check passes. ZFS and KVM still require explicit confirmation.
+ram_mb_minimum: 8192
+feature_flags:
+  docker: true
+  zfs: true
+  virtualization: true
+  ai_photos: true
+  clamav: true
+services_enabled:
+  - avahi-daemon
+  - caddy
+  - nftables
+  - fail2ban
+  - docker
+  - libvirtd
+packages_extra:
+  - docker.io
+  - docker-compose-plugin
+  - qemu-kvm
+  - libvirt-daemon-system
+  - libvirt-clients
+  - virtinst
+  - zfsutils-linux
+cgroup_defaults:
+  nas_slice_memory_max: "2G"
+  docker_default_memory: "1g"

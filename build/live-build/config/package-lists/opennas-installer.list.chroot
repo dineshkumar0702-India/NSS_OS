@@ -1,0 +1,27 @@
+# Graphical Calamares stack (lightweight X11 + Openbox)
+xorg
+xserver-xorg-core
+xserver-xorg-input-all
+xserver-xorg-video-all
+xinit
+openbox
+obconf
+lightdm
+lightdm-gtk-greeter
+calamares
+calamares-settings-debian
+qml-module-qtquick-controls2
+qml-module-qtquick-layouts
+qml-module-qtquick-window2
+qml-module-qtgraphicaleffects
+partitionmanager
+kpartx
+policykit-1
+pkexec
+plymouth
+plymouth-themes
+fonts-dejavu-core
+fontconfig
+mesa-utils
+x11-xserver-utils
+xterm

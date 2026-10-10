@@ -1,0 +1,13 @@
+[Unit]
+Description=OpenNAS-Lite nasd Unix socket (optional local CLI)
+PartOf=nasd.service
+
+[Socket]
+ListenStream=/run/nasd/nas.sock
+SocketMode=0660
+SocketUser=root
+SocketGroup=nas-admin
+Service=nasd.service
+
+[Install]
+WantedBy=sockets.target

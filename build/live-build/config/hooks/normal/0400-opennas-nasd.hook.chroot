@@ -1,0 +1,43 @@
+#!/bin/bash
+# Install nasd, web UI, App Center templates, and service units into the live/install image.
+set -e
+
+export DEBIAN_FRONTEND=noninteractive
+
+install -d -m 0755 /var/lib/nasd /run/nasd /usr/share/opennas/web /usr/share/opennas/apps
+
+if [ -d /usr/src/opennas-nasd ] && [ -f /usr/src/opennas-nasd/pyproject.toml ]; then
+	pip3 install --break-system-packages --no-cache-dir /usr/src/opennas-nasd
+fi
+
+if [ -d /usr/share/opennas/web-staging ]; then
+	cp -a /usr/share/opennas/web-staging/. /usr/share/opennas/web/
+	rm -rf /usr/share/opennas/web-staging
+fi
+
+if [ -d /usr/share/opennas/apps-staging ]; then
+	cp -a /usr/share/opennas/apps-staging/. /usr/share/opennas/apps/
+	rm -rf /usr/share/opennas/apps-staging
+fi
+
+if [ -f /usr/share/opennas/packaging/caddy/opennas.caddy ]; then
+	install -d -m 0755 /etc/caddy
+	cp -f /usr/share/opennas/packaging/caddy/opennas.caddy /etc/caddy/Caddyfile
+fi
+
+if [ -f /usr/share/opennas/packaging/systemd/nasd.service ]; then
+	cp -f /usr/share/opennas/packaging/systemd/nasd.service /etc/systemd/system/nasd.service
+	systemctl enable nasd.service 2>/dev/null || true
+fi
+
+systemctl enable caddy.service 2>/dev/null || true
+
+# VMware / lab: allow pool tests when operator opts in via drop-in (documented in docs/VMWARE.md)
+install -d -m 0755 /etc/systemd/system/nasd.service.d
+cat > /etc/systemd/system/nasd.service.d/opennas-lab.conf <<'EOF'
+[Service]
+# Lab ISO: mutations off by default; set NASD_ALLOW_STORAGE_MUTATIONS=true here for VM disk tests.
+Environment=NASD_ALLOW_STORAGE_MUTATIONS=false
+Environment=NASD_ALLOW_DOCKER_OPS=false
+Environment=NASD_ALLOW_SYSTEM_UPGRADE=false
+EOF

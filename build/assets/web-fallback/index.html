@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenNAS-Lite</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 3rem auto; padding: 0 1rem; }
+    code { background: #eee; padding: 0.1rem 0.35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>OpenNAS-Lite</h1>
+  <p>Management UI was not embedded in this ISO build (npm was unavailable at build time).</p>
+  <p>Use the API on loopback: <code>curl http://127.0.0.1:8741/api/v1/system/status</code></p>
+  <p>Rebuild the ISO on a host with Node.js/npm, or run <code>bash build/scripts/build-web.sh</code> before <code>build-iso.sh</code>.</p>
+</body>
+</html>

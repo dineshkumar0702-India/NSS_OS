@@ -1,0 +1,22 @@
+---
+componentName: OpenNAS-Lite
+shortProductName: OpenNAS-Lite
+version: "1.0.0"
+shortVersion: "1.0"
+versionedName: OpenNAS-Lite 1.0
+shortVersionedName: OpenNAS-Lite 1.0
+productUrl: https://opennas.local/
+supportUrl: https://opennas.local/docs
+knownIssuesUrl: https://opennas.local/docs/known-issues
+releaseNotesUrl: https://opennas.local/docs/release-notes
+donateUrl: ""
+calamaresVersion: "3.3"
+images:
+  productLogo: "logo.png"
+  productIcon: "icon.png"
+  productWelcome: "welcome.png"
+slideshow: "show.qml"
+style:
+  sidebarBackground: "#1a2332"
+  sidebarText: "#e8eef5"
+  sidebarTextSelect: "#4da3ff"

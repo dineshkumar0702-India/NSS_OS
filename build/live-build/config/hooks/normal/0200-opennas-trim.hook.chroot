@@ -1,0 +1,55 @@
+#!/bin/bash
+set -e
+
+# Reduce image size (target ISO <= 1.5 GB)
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+rm -rf /var/cache/apt/archives/*
+
+if command -v dpkg >/dev/null 2>&1; then
+	dpkg -l 'linux-image-*' 2>/dev/null | awk '/^ii/ && $2 !~ /amd64$/ {print $2}' | while read -r pkg; do
+		apt-get -y purge "$pkg" || true
+	done
+fi
+
+# Documentation and man pages
+rm -rf /usr/share/doc/*
+rm -rf /usr/share/man/*
+rm -rf /usr/share/info/*
+rm -rf /usr/share/lintian/*
+
+# Trim locales (keep en*)
+find /usr/share/locale -mindepth 1 -maxdepth 1 \
+	! -name 'en*' ! -name 'locale.alias' \
+	-exec rm -rf {} + 2>/dev/null || true
+
+# Calamares branding assets (fallback to Debian branding if PNGs not shipped)
+if [ -d /etc/calamares/branding/opennas ]; then
+	for img in logo.png icon.png welcome.png; do
+		if [ ! -f "/etc/calamares/branding/opennas/${img}" ]; then
+			find /usr/share/calamares/branding -name "${img}" -print -quit | while read -r src; do
+				cp -f "$src" "/etc/calamares/branding/opennas/${img}" 2>/dev/null || true
+			done
+		fi
+	done
+fi
+
+# LightDM autologin for live session -> Openbox -> Calamares
+mkdir -p /etc/lightdm/lightdm.conf.d
+cat > /etc/lightdm/lightdm.conf.d/50-opennas-live.conf <<'EOF'
+[Seat:*]
+autologin-user=live
+autologin-user-timeout=0
+autologin-session=openbox
+EOF
+
+mkdir -p /etc/xdg/openbox
+cat > /etc/xdg/openbox/autostart <<'EOF'
+#!/bin/bash
+# Launch Calamares installer on live boot (graphical install)
+if command -v calamares >/dev/null 2>&1; then
+  sleep 2
+  pkexec calamares &
+fi
+EOF
+chmod 0755 /etc/xdg/openbox/autostart

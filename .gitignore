@@ -1,0 +1,50 @@
+# Build artifacts (Phase 2+)
+build/live-build/*.iso
+build/live-build/*.img
+build/live-build/cache/
+build/live-build/chroot/
+build/output/
+src/web/node_modules/
+src/web/.svelte-kit/
+src/web/build/
+build/logs/
+build/live-build/config/includes.chroot/
+build/live-build/.build/
+build/live-build/chroot/
+build/live-build/binary/
+build/live-build/cache/
+build/live-build/*.iso
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+.svelte-kit/
+build/web/
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Local notes / chat exports (not part of the product)
+chat.txt
+
+# Secrets
+*.pem
+master.key
