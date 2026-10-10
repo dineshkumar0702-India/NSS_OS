@@ -35,6 +35,7 @@ Bootable, installable open-source NAS operating system (Debian 12–based), desi
 | [Developer guide](docs/DEVELOPER.md) | `nasd`, web UI, tests, ISO |
 | [Hardware compatibility](docs/HARDWARE.md) | RAM, disks, NICs, limits |
 | [Roadmap](docs/ROADMAP.md) | Done vs planned features |
+| [**Project memory (handoff)**](MEMORY.md) | Full context after reboot / new chat |
 
 ## Repository layout
 
