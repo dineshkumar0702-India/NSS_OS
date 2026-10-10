@@ -299,7 +299,8 @@ components:
           type: boolean
           default: false
         confirm_token:
-          type: [string, null]
+          type: string
+          description: Required on confirm step; omit on first dry-run request.
     PoolPlan:
       type: object
       properties:
