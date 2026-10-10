@@ -14,7 +14,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: bash build/scripts/lint-openapi.sh
+      - name: Normalize shell line endings (Windows checkouts)
+        run: find build/scripts -name '*.sh' -exec sed -i 's/\r$//' {} +
+      - name: Lint OpenAPI
+        run: bash build/scripts/lint-openapi.sh
 
   build-iso:
     runs-on: ubuntu-latest
